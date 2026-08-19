@@ -4,6 +4,10 @@ import AudioTransport from "./components/AudioTransport";
 import useAudioTransport from "./hooks/useAudioTransport";
 import MicrophoneControl from "./components/MicrophoneControl";
 import useMicrophone from "./hooks/useMicrophone";
+import PitchReadout from "./components/PitchReadout";
+import usePitchDetection from "./hooks/usePitchDetection";
+import { frequencyToNote } from "./utils/frequencyToNote";
+import { centsFromPitch } from "./utils/centsFromPitch";
 import "./App.css";
 
 function App() {
@@ -29,6 +33,25 @@ function App() {
     startMicrophone,
     stopMicrophone,
   } = useMicrophone();
+
+  const {
+    frequency,
+  } = usePitchDetection(
+    streamRef,
+    isMicActive
+  );
+
+  const pitchInfo = frequency
+    ? frequencyToNote(frequency)
+    : null;
+
+  const cents =
+    frequency && pitchInfo
+      ? centsFromPitch(
+        frequency,
+        pitchInfo.midiNumber
+      )
+      : null;
 
   return (
     <main className="app">
@@ -65,6 +88,12 @@ function App() {
               micError={micError}
               onStart={startMicrophone}
               onStop={stopMicrophone}
+            />
+            <PitchReadout
+              frequency={frequency}
+              note={pitchInfo?.label}
+              cents={cents}
+              isMicActive={isMicActive}
             />
           </>
         )}

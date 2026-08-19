@@ -209,3 +209,37 @@
   margin: 14px 0 0;
   color: #ff9696;
 }
+
+.pitch-readout {
+  margin-top: 28px;
+  padding: 28px;
+  border: 1px solid #262630;
+  border-radius: 20px;
+  background: #0d0d13;
+  text-align: center;
+}
+
+.frequency-display {
+  margin: 16px 0 8px;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+}
+
+.pitch-helper {
+  margin: 0;
+  color: #8c8c98;
+}
+
+.note-display {
+  margin-top: 12px;
+  font-size: clamp(3rem, 10vw, 6rem);
+  font-weight: 700;
+}
+
+.cents-display {
+  margin-top: 8px;
+  color: #a7a7b2;
+  font-variant-numeric: tabular-nums;
+}
