@@ -1,42 +1,116 @@
 #root {
-  max-width: 1280px;
+  min-height: 100vh;
+}
+
+.app {
+  min-height: 100vh;
+  padding: 48px 24px;
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(91, 92, 255, 0.15),
+      transparent 35%
+    ),
+    #0a0a0f;
+  color: #f5f5f7;
+}
+
+.app-header {
+  width: min(900px, 100%);
+  margin: 0 auto 40px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  color: #9898ff;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: clamp(2.5rem, 7vw, 5rem);
+}
+
+.subtitle {
+  max-width: 620px;
+  margin-top: 12px;
+  color: #a7a7b2;
+}
+
+.workspace {
+  width: min(900px, 100%);
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  padding: 32px;
+  border: 1px solid #262630;
+  border-radius: 24px;
+  background: rgba(18, 18, 25, 0.9);
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.audio-uploader {
+  display: grid;
+  gap: 16px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.upload-label {
+  width: fit-content;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: #6868ff;
+  color: white;
+  cursor: pointer;
+}
+
+.audio-uploader input[type="file"] {
+  display: none;
+}
+
+.file-name {
+  margin: 0;
+  color: #b8b8c3;
+}
+
+.audio-transport {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 24px;
+  align-items: center;
+  margin-top: 32px;
+}
+
+.play-button {
+  min-width: 90px;
+  padding: 12px 20px;
+  border: 0;
+  border-radius: 999px;
+  background: #f5f5f7;
+  color: #111116;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.timeline {
+  display: grid;
+  grid-template-columns: 48px 1fr 48px;
+  gap: 12px;
+  align-items: center;
+}
+
+.timeline span {
+  font-variant-numeric: tabular-nums;
+  color: #a7a7b2;
+}
+
+.timeline input[type="range"] {
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .audio-transport {
+    grid-template-columns: 1fr;
   }
-  to {
-    transform: rotate(360deg);
+
+  .play-button {
+    width: 100%;
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
