@@ -114,3 +114,44 @@
     width: 100%;
   }
 }
+
+.audio-transport {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 24px;
+  align-items: start;
+  margin-top: 32px;
+}
+
+.transport-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.transport-content {
+  display: grid;
+  gap: 20px;
+}
+
+.restart-button {
+  width: 44px;
+  height: 44px;
+  border: 1px solid #353540;
+  border-radius: 50%;
+  background: transparent;
+  color: #f5f5f7;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.volume-control {
+  display: grid;
+  grid-template-columns: auto minmax(100px, 180px) 48px;
+  gap: 12px;
+  align-items: center;
+  color: #a7a7b2;
+}
+
+.volume-control input {
+  width: 100%;
+}

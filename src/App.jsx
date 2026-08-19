@@ -13,8 +13,11 @@ function App() {
     isPlaying,
     currentTime,
     duration,
+    volume,
     togglePlayback,
     seek,
+    restart,
+    changeVolume,
   } = useAudioTransport(audioFile);
 
   return (
@@ -37,13 +40,16 @@ function App() {
           <>
             <audio ref={audioRef} src={audioUrl} preload="metadata" />
 
-            <AudioTransport
-              isPlaying={isPlaying}
-              currentTime={currentTime}
-              duration={duration}
-              onPlayPause={togglePlayback}
-              onSeek={seek}
-            />
+<AudioTransport
+  isPlaying={isPlaying}
+  currentTime={currentTime}
+  duration={duration}
+  volume={volume}
+  onPlayPause={togglePlayback}
+  onSeek={seek}
+  onRestart={restart}
+  onVolumeChange={changeVolume}
+/>
           </>
         )}
       </section>
