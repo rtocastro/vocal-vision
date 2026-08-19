@@ -2,6 +2,8 @@ import { useState } from "react";
 import AudioUploader from "./components/AudioUploader";
 import AudioTransport from "./components/AudioTransport";
 import useAudioTransport from "./hooks/useAudioTransport";
+import MicrophoneControl from "./components/MicrophoneControl";
+import useMicrophone from "./hooks/useMicrophone";
 import "./App.css";
 
 function App() {
@@ -19,6 +21,14 @@ function App() {
     restart,
     changeVolume,
   } = useAudioTransport(audioFile);
+
+  const {
+    streamRef,
+    isMicActive,
+    micError,
+    startMicrophone,
+    stopMicrophone,
+  } = useMicrophone();
 
   return (
     <main className="app">
@@ -40,16 +50,22 @@ function App() {
           <>
             <audio ref={audioRef} src={audioUrl} preload="metadata" />
 
-<AudioTransport
-  isPlaying={isPlaying}
-  currentTime={currentTime}
-  duration={duration}
-  volume={volume}
-  onPlayPause={togglePlayback}
-  onSeek={seek}
-  onRestart={restart}
-  onVolumeChange={changeVolume}
-/>
+            <AudioTransport
+              isPlaying={isPlaying}
+              currentTime={currentTime}
+              duration={duration}
+              volume={volume}
+              onPlayPause={togglePlayback}
+              onSeek={seek}
+              onRestart={restart}
+              onVolumeChange={changeVolume}
+            />
+            <MicrophoneControl
+              isMicActive={isMicActive}
+              micError={micError}
+              onStart={startMicrophone}
+              onStop={stopMicrophone}
+            />
           </>
         )}
       </section>

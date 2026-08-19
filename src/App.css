@@ -155,3 +155,57 @@
 .volume-control input {
   width: 100%;
 }
+
+.microphone-control {
+  margin-top: 32px;
+  padding-top: 28px;
+  border-top: 1px solid #262630;
+}
+
+.mic-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.section-label {
+  margin: 0 0 6px;
+  color: #9898ff;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+}
+
+.mic-header h2 {
+  margin: 0;
+}
+
+.mic-status {
+  padding: 7px 10px;
+  border: 1px solid #3a3a45;
+  border-radius: 999px;
+  color: #8c8c98;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
+
+.mic-status.active {
+  border-color: #4f9f72;
+  color: #77d59c;
+}
+
+.mic-button {
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 999px;
+  background: #6868ff;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mic-error {
+  margin: 14px 0 0;
+  color: #ff9696;
+}
