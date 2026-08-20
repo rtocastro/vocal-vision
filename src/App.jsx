@@ -8,6 +8,7 @@ import PitchReadout from "./components/PitchReadout";
 import usePitchDetection from "./hooks/usePitchDetection";
 import { frequencyToNote } from "./utils/frequencyToNote";
 import { centsFromPitch } from "./utils/centsFromPitch";
+import PitchMeter from "./components/PitchMeter";
 import "./App.css";
 
 function App() {
@@ -91,6 +92,11 @@ function App() {
             />
             <PitchReadout
               frequency={frequency}
+              note={pitchInfo?.label}
+              cents={cents}
+              isMicActive={isMicActive}
+            />
+            <PitchMeter
               note={pitchInfo?.label}
               cents={cents}
               isMicActive={isMicActive}

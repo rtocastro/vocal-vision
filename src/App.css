@@ -243,3 +243,107 @@
   color: #a7a7b2;
   font-variant-numeric: tabular-nums;
 }
+
+.pitch-meter {
+  margin-top: 24px;
+  padding: 28px;
+  border: 1px solid #262630;
+  border-radius: 20px;
+  background: #0d0d13;
+}
+
+.pitch-meter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.pitch-meter-header h2 {
+  margin: 4px 0 0;
+  font-size: 2rem;
+}
+
+.tuning-status {
+  padding: 7px 12px;
+  border: 1px solid #3a3a45;
+  border-radius: 999px;
+  color: #8c8c98;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
+
+.tuning-status.in-tune {
+  border-color: #4f9f72;
+  color: #77d59c;
+}
+
+.tuning-status.out-of-tune {
+  border-color: #9f7750;
+  color: #e2aa74;
+}
+
+.meter-labels,
+.meter-scale {
+  display: flex;
+  justify-content: space-between;
+}
+
+.meter-labels {
+  margin-top: 30px;
+  color: #8c8c98;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
+
+.meter-track {
+  position: relative;
+  height: 14px;
+  margin-top: 10px;
+  border-radius: 999px;
+  background: #25252f;
+}
+
+.meter-center {
+  position: absolute;
+  top: -6px;
+  bottom: -6px;
+  left: 50%;
+  width: 2px;
+  background: #f5f5f7;
+  transform: translateX(-50%);
+}
+
+.meter-indicator {
+  position: absolute;
+  top: 50%;
+  width: 22px;
+  height: 22px;
+  border: 3px solid #0d0d13;
+  border-radius: 50%;
+  background: #9898ff;
+  transform: translate(-50%, -50%);
+  transition: left 80ms linear;
+}
+
+.meter-scale {
+  margin-top: 10px;
+  color: #686875;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.pitch-direction {
+  margin-top: 28px;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.pitch-cents {
+  margin-top: 6px;
+  text-align: center;
+  color: #a7a7b2;
+  font-variant-numeric: tabular-nums;
+}
+
