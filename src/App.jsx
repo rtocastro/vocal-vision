@@ -9,10 +9,25 @@ import usePitchDetection from "./hooks/usePitchDetection";
 import { frequencyToNote } from "./utils/frequencyToNote";
 import { centsFromPitch } from "./utils/centsFromPitch";
 import PitchMeter from "./components/PitchMeter";
+import ReferenceAnalyzer from "./components/ReferenceAnalyzer";
+import useReferencePitchAnalysis from "./hooks/useReferencePitchAnalysis";
+import TargetComparison from "./components/TargetComparison";
+import { findReferencePitch } from "./utils/findReferencePitch";
+import { comparePitches } from "./utils/comparePitches";
 import "./App.css";
 
 function App() {
   const [audioFile, setAudioFile] = useState(null);
+  const [referenceFile, setReferenceFile] =
+    useState(null);
+
+  const {
+    referencePitchData,
+    isAnalyzing,
+    analysisError,
+    analyzeReference,
+    clearReferenceAnalysis,
+  } = useReferencePitchAnalysis();
 
   const {
     audioRef,
@@ -51,6 +66,26 @@ function App() {
       ? centsFromPitch(
         frequency,
         pitchInfo.midiNumber
+      )
+      : null;
+
+  const targetPitchPoint = findReferencePitch(
+    referencePitchData,
+    currentTime
+  );
+
+  const targetPitchInfo =
+    targetPitchPoint?.frequency
+      ? frequencyToNote(
+        targetPitchPoint.frequency
+      )
+      : null;
+
+  const pitchComparison =
+    targetPitchPoint?.frequency && frequency
+      ? comparePitches(
+        frequency,
+        targetPitchPoint.frequency
       )
       : null;
 
@@ -99,6 +134,25 @@ function App() {
             <PitchMeter
               note={pitchInfo?.label}
               cents={cents}
+              isMicActive={isMicActive}
+            />
+            <ReferenceAnalyzer
+              referenceFile={referenceFile}
+              isAnalyzing={isAnalyzing}
+              analysisError={analysisError}
+              pitchData={referencePitchData}
+              onFileSelect={setReferenceFile}
+              onAnalyze={analyzeReference}
+            />
+            <TargetComparison
+              targetNote={targetPitchInfo?.label}
+              targetFrequency={
+                targetPitchPoint?.frequency ?? null
+              }
+              liveNote={pitchInfo?.label}
+              liveFrequency={frequency}
+              comparison={pitchComparison}
+              isPlaying={isPlaying}
               isMicActive={isMicActive}
             />
           </>
