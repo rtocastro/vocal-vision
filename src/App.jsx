@@ -1,4 +1,7 @@
-import { useState } from "react";
+import {
+  useMemo,
+  useState,
+} from "react";
 import AudioUploader from "./components/AudioUploader";
 import AudioTransport from "./components/AudioTransport";
 import useAudioTransport from "./hooks/useAudioTransport";
@@ -14,6 +17,10 @@ import useReferencePitchAnalysis from "./hooks/useReferencePitchAnalysis";
 import TargetComparison from "./components/TargetComparison";
 import { findReferencePitch } from "./utils/findReferencePitch";
 import { comparePitches } from "./utils/comparePitches";
+import { cleanReferencePitch } from "./utils/cleanReferencePitch";
+
+import { getMelodyStats } from "./utils/getMelodyStats";
+
 import "./App.css";
 
 function App() {
@@ -21,13 +28,14 @@ function App() {
   const [referenceFile, setReferenceFile] =
     useState(null);
 
-  const {
-    referencePitchData,
-    isAnalyzing,
-    analysisError,
-    analyzeReference,
-    clearReferenceAnalysis,
-  } = useReferencePitchAnalysis();
+
+
+const {
+  referencePitchData,
+  isAnalyzing,
+  analysisError,
+  analyzeReference,
+} = useReferencePitchAnalysis();
 
   const {
     audioRef,
@@ -69,7 +77,24 @@ function App() {
       )
       : null;
 
-  const targetPitchPoint = findReferencePitch(
+  // Clean the raw reference vocal data FIRST.
+  const cleanedReferencePitchData =
+    useMemo(() => {
+      return cleanReferencePitch(
+        referencePitchData
+      );
+    }, [referencePitchData]);
+
+  // Generate stats from the cleaned data.
+  const melodyStats = useMemo(() => {
+    return getMelodyStats(
+      cleanedReferencePitchData
+    );
+  }, [cleanedReferencePitchData]);
+
+  // NOW we can use cleanedReferencePitchData.
+const targetPitchPoint =
+  findReferencePitch(
     referencePitchData,
     currentTime
   );
@@ -141,6 +166,7 @@ function App() {
               isAnalyzing={isAnalyzing}
               analysisError={analysisError}
               pitchData={referencePitchData}
+              melodyStats={melodyStats}
               onFileSelect={setReferenceFile}
               onAnalyze={analyzeReference}
             />
