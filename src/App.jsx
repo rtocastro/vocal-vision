@@ -30,12 +30,12 @@ function App() {
 
 
 
-const {
-  referencePitchData,
-  isAnalyzing,
-  analysisError,
-  analyzeReference,
-} = useReferencePitchAnalysis();
+  const {
+    referencePitchData,
+    isAnalyzing,
+    analysisError,
+    analyzeReference,
+  } = useReferencePitchAnalysis();
 
   const {
     audioRef,
@@ -93,11 +93,11 @@ const {
   }, [cleanedReferencePitchData]);
 
   // NOW we can use cleanedReferencePitchData.
-const targetPitchPoint =
-  findReferencePitch(
-    referencePitchData,
-    currentTime
-  );
+  const targetPitchPoint =
+    findReferencePitch(
+      cleanedReferencePitchData,
+      currentTime
+    );
 
   const targetPitchInfo =
     targetPitchPoint?.frequency
