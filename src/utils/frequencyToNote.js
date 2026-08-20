@@ -13,15 +13,32 @@ const NOTE_NAMES = [
   "B",
 ];
 
-export function frequencyToNote(frequency) {
+/**
+ * Convert a frequency in Hz to its precise MIDI note value.
+ *
+ * Examples:
+ * 440 Hz = 69
+ * 261.63 Hz ≈ 60
+ */
+export function frequencyToMidi(frequency) {
   if (!frequency || frequency <= 0) {
     return null;
   }
 
-  const midiNumber =
-    69 + 12 * Math.log2(frequency / 440);
+  return 69 + 12 * Math.log2(frequency / 440);
+}
 
-  const roundedMidi = Math.round(midiNumber);
+/**
+ * Convert a frequency into musical note information.
+ */
+export function frequencyToNote(frequency) {
+  const midiValue = frequencyToMidi(frequency);
+
+  if (midiValue === null) {
+    return null;
+  }
+
+  const roundedMidi = Math.round(midiValue);
 
   const noteIndex =
     ((roundedMidi % 12) + 12) % 12;
@@ -33,6 +50,7 @@ export function frequencyToNote(frequency) {
     note: NOTE_NAMES[noteIndex],
     octave,
     midiNumber: roundedMidi,
+    midiValue,
     label: `${NOTE_NAMES[noteIndex]}${octave}`,
   };
 }
