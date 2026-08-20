@@ -18,9 +18,8 @@ import TargetComparison from "./components/TargetComparison";
 import { findReferencePitch } from "./utils/findReferencePitch";
 import { comparePitches } from "./utils/comparePitches";
 import { cleanReferencePitch } from "./utils/cleanReferencePitch";
-
+import PitchLane from "./components/PitchLane";
 import { getMelodyStats } from "./utils/getMelodyStats";
-
 import "./App.css";
 
 function App() {
@@ -180,6 +179,12 @@ function App() {
               comparison={pitchComparison}
               isPlaying={isPlaying}
               isMicActive={isMicActive}
+            />
+            <PitchLane
+              pitchData={cleanedReferencePitchData}
+              currentTime={currentTime}
+              liveFrequency={frequency}
+              isPlaying={isPlaying}
             />
           </>
         )}
