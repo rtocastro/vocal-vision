@@ -695,3 +695,34 @@
   font-size: 0.72rem;
   white-space: nowrap;
 }
+
+.live-pitch-trail {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.live-pitch-trail polyline {
+  fill: none;
+  stroke: #77d59c;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.8;
+}
+
+.live-pitch-dot {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 3px solid #0d0d13;
+  border-radius: 50%;
+  background: #77d59c;
+  transform: translate(-50%, -50%);
+  z-index: 4;
+}

@@ -21,6 +21,7 @@ import { cleanReferencePitch } from "./utils/cleanReferencePitch";
 import PitchLane from "./components/PitchLane";
 import { getMelodyStats } from "./utils/getMelodyStats";
 import { buildMelodySegments } from "./utils/buildMelodySegments";
+import useLivePitchHistory from "./hooks/useLivePitchHistory";
 import "./App.css";
 
 function App() {
@@ -65,6 +66,16 @@ function App() {
     streamRef,
     isMicActive
   );
+
+  const {
+    pitchHistory,
+    clearPitchHistory,
+  } = useLivePitchHistory({
+    frequency,
+    currentTime: visualTime,
+    isMicActive,
+    isPlaying,
+  });
 
   const pitchInfo = frequency
     ? frequencyToNote(frequency)
@@ -121,6 +132,16 @@ function App() {
     );
   }, [cleanedReferencePitchData]);
 
+  const handleSeek = (time) => {
+    clearPitchHistory();
+    seek(time);
+  };
+
+  const handleRestart = () => {
+    clearPitchHistory();
+    restart();
+  };
+
   return (
     <main className="app">
       <header className="app-header">
@@ -147,8 +168,8 @@ function App() {
               duration={duration}
               volume={volume}
               onPlayPause={togglePlayback}
-              onSeek={seek}
-              onRestart={restart}
+              onSeek={handleSeek}
+              onRestart={handleRestart}
               onVolumeChange={changeVolume}
             />
             <MicrophoneControl
@@ -192,6 +213,7 @@ function App() {
               segments={melodySegments}
               currentTime={visualTime}
               liveFrequency={frequency}
+              livePitchHistory={pitchHistory}
               isPlaying={isPlaying}
             />
           </>
