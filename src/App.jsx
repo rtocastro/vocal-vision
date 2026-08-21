@@ -42,6 +42,7 @@ function App() {
     audioUrl,
     isPlaying,
     currentTime,
+    visualTime,
     duration,
     volume,
     togglePlayback,
@@ -189,7 +190,7 @@ function App() {
             />
             <PitchLane
               segments={melodySegments}
-              currentTime={currentTime}
+              currentTime={visualTime}
               liveFrequency={frequency}
               isPlaying={isPlaying}
             />

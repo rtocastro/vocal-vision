@@ -6,11 +6,9 @@
   min-height: 100vh;
   padding: 48px 24px;
   background:
-    radial-gradient(
-      circle at top,
+    radial-gradient(circle at top,
       rgba(91, 92, 255, 0.15),
-      transparent 35%
-    ),
+      transparent 35%),
     #0a0a0f;
   color: #f5f5f7;
 }
@@ -457,9 +455,7 @@
 .pitch-comparison-grid {
   display: grid;
   grid-template-columns:
-    minmax(0, 1fr)
-    auto
-    minmax(0, 1fr);
+    minmax(0, 1fr) auto minmax(0, 1fr);
   gap: 24px;
   align-items: center;
   margin-top: 32px;
@@ -560,12 +556,10 @@
   border: 1px solid #262630;
   border-radius: 16px;
   background:
-    repeating-linear-gradient(
-      to bottom,
+    repeating-linear-gradient(to bottom,
       transparent,
       transparent 39px,
-      rgba(255, 255, 255, 0.05) 40px
-    ),
+      rgba(255, 255, 255, 0.05) 40px),
     #09090e;
 }
 
@@ -628,4 +622,76 @@
   border: 1px solid #262630;
   border-radius: 16px;
   color: #8c8c98;
+}
+
+.pitch-note-row {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.pitch-lane-body {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  gap: 8px;
+  margin-top: 28px;
+}
+
+.pitch-note-labels {
+  position: relative;
+  height: 300px;
+}
+
+.pitch-note-labels span {
+  position: absolute;
+  right: 6px;
+  transform: translateY(-50%);
+  color: #787884;
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.pitch-lane-grid {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+  border: 1px solid #262630;
+  border-radius: 16px;
+  background: #09090e;
+}
+
+.pitch-note-row {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.pitch-lane-body {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 8px;
+  margin-top: 28px;
+}
+
+.pitch-note-labels {
+  position: relative;
+  height: 300px;
+}
+
+.pitch-note-labels span {
+  position: absolute;
+  right: 6px;
+  transform: translateY(-50%);
+  color: #8c8c98;
+  font-size: 0.72rem;
+  white-space: nowrap;
 }
