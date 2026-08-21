@@ -20,6 +20,7 @@ import { comparePitches } from "./utils/comparePitches";
 import { cleanReferencePitch } from "./utils/cleanReferencePitch";
 import PitchLane from "./components/PitchLane";
 import { getMelodyStats } from "./utils/getMelodyStats";
+import { buildMelodySegments } from "./utils/buildMelodySegments";
 import "./App.css";
 
 function App() {
@@ -113,6 +114,12 @@ function App() {
       )
       : null;
 
+  const melodySegments = useMemo(() => {
+    return buildMelodySegments(
+      cleanedReferencePitchData
+    );
+  }, [cleanedReferencePitchData]);
+
   return (
     <main className="app">
       <header className="app-header">
@@ -181,7 +188,7 @@ function App() {
               isMicActive={isMicActive}
             />
             <PitchLane
-              pitchData={cleanedReferencePitchData}
+              segments={melodySegments}
               currentTime={currentTime}
               liveFrequency={frequency}
               isPlaying={isPlaying}
