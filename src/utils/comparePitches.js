@@ -1,11 +1,11 @@
 export function comparePitches(
   liveFrequency,
   targetFrequency,
-  inTuneThreshold = 15
+  toleranceCents = 15
 ) {
   if (
-    !liveFrequency ||
-    !targetFrequency ||
+    !Number.isFinite(liveFrequency) ||
+    !Number.isFinite(targetFrequency) ||
     liveFrequency <= 0 ||
     targetFrequency <= 0
   ) {
@@ -18,14 +18,17 @@ export function comparePitches(
       liveFrequency / targetFrequency
     );
 
+  const absoluteCents =
+    Math.abs(centsDifference);
+
   let status = "IN TUNE";
   let direction = "LOCKED";
 
-  if (centsDifference < -inTuneThreshold) {
+  if (centsDifference < -toleranceCents) {
     status = "FLAT";
     direction = "SING HIGHER";
   } else if (
-    centsDifference > inTuneThreshold
+    centsDifference > toleranceCents
   ) {
     status = "SHARP";
     direction = "SING LOWER";
@@ -33,7 +36,18 @@ export function comparePitches(
 
   return {
     centsDifference,
+
+    // Also expose this alias for future features.
+    cents: centsDifference,
+
+    absoluteCents,
+
     status,
     direction,
+
+    toleranceCents,
+
+    isInTune:
+      absoluteCents <= toleranceCents,
   };
 }

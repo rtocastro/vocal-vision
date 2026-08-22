@@ -22,12 +22,26 @@ import PitchLane from "./components/PitchLane";
 import { getMelodyStats } from "./utils/getMelodyStats";
 import { buildMelodySegments } from "./utils/buildMelodySegments";
 import useLivePitchHistory from "./hooks/useLivePitchHistory";
+import { smoothLivePitch } from "./utils/smoothLivePitch";
 import "./App.css";
+
+import VocalModeSelector from "./components/VocalModeSelector";
+
+import {
+  VOCAL_MODES,
+  DEFAULT_VOCAL_MODE,
+} from "./config/vocalModes";
 
 function App() {
   const [audioFile, setAudioFile] = useState(null);
   const [referenceFile, setReferenceFile] =
     useState(null);
+
+  const [vocalMode, setVocalMode] =
+    useState(DEFAULT_VOCAL_MODE);
+
+  const vocalModeConfig =
+    VOCAL_MODES[vocalMode];
 
 
 
@@ -77,14 +91,31 @@ function App() {
     isPlaying,
   });
 
-  const pitchInfo = frequency
-    ? frequencyToNote(frequency)
+  const smoothedFrequency =
+    useMemo(() => {
+      const recentFrequencies =
+        pitchHistory.map(
+          (point) => point.frequency
+        );
+
+      return smoothLivePitch(
+        recentFrequencies,
+        vocalModeConfig.smoothingSamples
+      );
+    }, [
+      pitchHistory,
+      vocalModeConfig.smoothingSamples,
+    ]);
+
+
+  const pitchInfo = smoothedFrequency
+    ? frequencyToNote(smoothedFrequency)
     : null;
 
   const cents =
-    frequency && pitchInfo
+    smoothedFrequency && pitchInfo
       ? centsFromPitch(
-        frequency,
+        smoothedFrequency,
         pitchInfo.midiNumber
       )
       : null;
@@ -118,14 +149,17 @@ function App() {
       )
       : null;
 
-  const pitchComparison =
-    targetPitchPoint?.frequency && frequency
-      ? comparePitches(
-        frequency,
-        targetPitchPoint.frequency
+const pitchComparison =
+  targetPitchPoint?.frequency &&
+  smoothedFrequency
+    ? comparePitches(
+        smoothedFrequency,
+        targetPitchPoint.frequency,
+        vocalModeConfig.toleranceCents
       )
-      : null;
+    : null;
 
+    
   const melodySegments = useMemo(() => {
     return buildMelodySegments(
       cleanedReferencePitchData
@@ -172,6 +206,11 @@ function App() {
               onRestart={handleRestart}
               onVolumeChange={changeVolume}
             />
+
+            <VocalModeSelector
+              activeMode={vocalMode}
+              onModeChange={setVocalMode}
+            />
             <MicrophoneControl
               isMicActive={isMicActive}
               micError={micError}
@@ -204,17 +243,19 @@ function App() {
                 targetPitchPoint?.frequency ?? null
               }
               liveNote={pitchInfo?.label}
-              liveFrequency={frequency}
+              liveFrequency={smoothedFrequency}
               comparison={pitchComparison}
               isPlaying={isPlaying}
               isMicActive={isMicActive}
+              
             />
             <PitchLane
               segments={melodySegments}
               currentTime={visualTime}
-              liveFrequency={frequency}
+              liveFrequency={smoothedFrequency}
               livePitchHistory={pitchHistory}
               isPlaying={isPlaying}
+              
             />
           </>
         )}

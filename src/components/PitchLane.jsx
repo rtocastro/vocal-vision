@@ -26,11 +26,11 @@ function midiToNoteLabel(midiNumber) {
 }
 
 function PitchLane({
-    segments,
-    currentTime,
-    liveFrequency,
-    livePitchHistory = [],
-    isPlaying,
+  segments,
+  currentTime,
+  liveFrequency,
+  livePitchHistory = [],
+  isPlaying,
 }) {
     const pastWindow = 2;
     const futureWindow = 3;
